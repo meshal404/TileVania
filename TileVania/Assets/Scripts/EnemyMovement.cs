@@ -27,9 +27,4 @@ public class EnemyMovement : MonoBehaviour
         enemySpeed = -enemySpeed;
         transform.localScale = new Vector2(Mathf.Sign(enemySpeed) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
     }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
 }

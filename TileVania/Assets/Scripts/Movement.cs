@@ -15,10 +15,13 @@ public class Movement : MonoBehaviour
     CapsuleCollider2D myCapsuleCollider;
 
     bool isAlive = true;
+    public GameObject bullet;
+    public Transform gun;
 
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] Vector2 deathBomb;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +51,16 @@ public class Movement : MonoBehaviour
         if (value.isPressed && myFeetCollider.IsTouchingLayers(layerMask))
         {
             rb2d.velocity += new Vector2(0f, jumpSpeed);
+        }
+    }
+
+    void OnFire(InputValue value)
+    {
+        if (!isAlive) { return; }
+
+        if (value.isPressed)
+        {
+            Instantiate(bullet, gun.position, transform.rotation);
         }
     }
 
@@ -82,6 +95,5 @@ public class Movement : MonoBehaviour
             isAlive = false;
             rb2d.AddForce(new Vector2(deathBomb.x * -(Mathf.Sign(rb2d.velocity.x)), deathBomb.y), ForceMode2D.Impulse);
         }
-            
     }
 }
