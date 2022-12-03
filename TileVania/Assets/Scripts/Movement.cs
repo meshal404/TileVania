@@ -6,26 +6,30 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody2D rb2d;
-    Animator animator;
     Vector2 moveInput;
     LayerMask layerMask;
+    bool isShoting;
+    bool isAlive = true;
+    bool endLevel;
     bool playerHasHorizantalSpeed;
+    Rigidbody2D rb2d;
+    Animator animator;
+    ExitLevel exitLevel;
     CircleCollider2D myFeetCollider;
     CapsuleCollider2D myCapsuleCollider;
 
-    bool isAlive = true;
     public GameObject bullet;
     public Transform gun;
 
+    [SerializeField] Vector2 deathBomb;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
-    [SerializeField] Vector2 deathBomb;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        exitLevel = FindObjectOfType<ExitLevel>();
         myCapsuleCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<CircleCollider2D>();
         layerMask = LayerMask.GetMask("Ground");
@@ -36,17 +40,19 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive) { return; }
+        if (!isAlive || endLevel) { return; }
+
         Run();
         Death();
         FlipSprite();
         animator.SetBool("isJumping", !myFeetCollider.IsTouchingLayers(layerMask));
         animator.SetBool("isAlive", isAlive);
+        endLevel = exitLevel.hasEnd;
     }
 
     void OnJump(InputValue value)
     {
-        if (!isAlive) { return; }
+        if (!isAlive || endLevel) { return; }
 
         if (value.isPressed && myFeetCollider.IsTouchingLayers(layerMask))
         {
@@ -56,23 +62,30 @@ public class Movement : MonoBehaviour
 
     void OnFire(InputValue value)
     {
-        if (!isAlive) { return; }
+        if (!isAlive || endLevel) { return; }
+        
+        //The Shotting system need to be fixed
 
-        if (value.isPressed)
-        {
+        isShoting = value.isPressed;
+    }
+
+    void Shot()
+    {
+        //The Shotting system need to be fixed
+
+        if (isShoting)
             Instantiate(bullet, gun.position, transform.rotation);
-        }
     }
 
     void OnMove(InputValue value)
     {
-        if (!isAlive) { return; }
+        if (!isAlive || endLevel) { return; }
         moveInput = value.Get<Vector2>();
     }
 
     void Run()
     {
-        if (!isAlive) { return; }
+        if (!isAlive || endLevel) { return; }
         Vector2 playerVelocity = new Vector2(moveInput.x * moveSpeed, rb2d.velocity.y);
         rb2d.velocity = playerVelocity;
 
@@ -81,7 +94,7 @@ public class Movement : MonoBehaviour
 
     void FlipSprite()
     {
-        if (!isAlive) { return; }
+        if (!isAlive || endLevel) { return; }
         playerHasHorizantalSpeed = Mathf.Abs(rb2d.velocity.x) > Mathf.Epsilon;
 
         if(playerHasHorizantalSpeed)

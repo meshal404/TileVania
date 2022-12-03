@@ -542,6 +542,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4912086895619926706, guid: 056d7f7b4cc43ce41b36d80f3fcb1ed8, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 1725119720}
     - target: {fileID: 5042311673734835182, guid: 056d7f7b4cc43ce41b36d80f3fcb1ed8, type: 3}
       propertyPath: m_Name
       value: Exit
