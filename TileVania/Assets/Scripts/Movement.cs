@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     ExitLevel exitLevel;
     CircleCollider2D myFeetCollider;
     CapsuleCollider2D myCapsuleCollider;
+    GameSession gameSession;
 
     public GameObject bullet;
     public Transform gun;
@@ -29,6 +30,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameSession = FindObjectOfType<GameSession>();
         exitLevel = FindObjectOfType<ExitLevel>();
         myCapsuleCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<CircleCollider2D>();
@@ -107,6 +109,7 @@ public class Movement : MonoBehaviour
         {
             isAlive = false;
             rb2d.AddForce(new Vector2(deathBomb.x * -(Mathf.Sign(rb2d.velocity.x)), deathBomb.y), ForceMode2D.Impulse);
+            gameSession.ProcessPlayerDeath();
         }
     }
 }
