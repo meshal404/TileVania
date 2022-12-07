@@ -21,9 +21,9 @@ public class Movement : MonoBehaviour
 
     public GameObject bullet;
     public Transform gun;
+    public float moveSpeed = 5f;
 
     [SerializeField] Vector2 deathBomb;
-    [SerializeField] float moveSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
     
 

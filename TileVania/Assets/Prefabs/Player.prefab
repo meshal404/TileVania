@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 1725119721}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,9 +223,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 8172101786156892846, guid: 8b9cbdf629a05e04ebdb6588289c6c7f, type: 3}
   gun: {fileID: 1336113678248622773}
+  deathBomb: {x: 18, y: 8}
   moveSpeed: 7.5
   jumpSpeed: 14.75
-  deathBomb: {x: 18, y: 8}
 --- !u!58 &1725119721
 CircleCollider2D:
   m_ObjectHideFlags: 0
